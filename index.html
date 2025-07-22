@@ -65,7 +65,7 @@
             <!-- onclick="window.location.href='https:'" -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button 
-                    class=" bg-orange-900 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    class=" backdrop-blur-lg bg-white/20 border border-white/20 p-8 hover:shadow-2xl hover:bg-white/30 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                     <a href="formulir.html">
                         <span class="flex items-center space-x-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@
                 
                 <button 
                     onclick="showInfo()"
-                    class="bg-white hover:bg-gray-50 text-kpu-blue border-2 border-kpu-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    class="backdrop-blur-lg bg-white/20 border border-white/20 p-8 hover:shadow-2xl hover:bg-white/30 text-white border-kpu-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                     <span class="flex items-center space-x-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -90,38 +90,47 @@
         </div>
 
         <!-- Cards Section -->
-        <div class="mt-20 grid md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-t-4 border-kpu-blue">
-                <div class="w-12 h-12 bg-kpu-blue bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-kpu-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                    </svg>
+<div class="mt-20 grid md:grid-cols-3 gap-8">
+            <!-- Card 1 - Glass Effect -->
+            <div class="backdrop-blur-lg bg-white/20 border border-white/20 rounded-xl shadow-xl p-8 hover:shadow-2xl hover:bg-white/30 transition-all duration-300 border-t-4 border-kpu-blue relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-kpu-blue/20 backdrop-blur-sm border border-kpu-blue/30 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-kpu-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Pendaftaran Pemilih</h3>
+                    <p class="text-gray-700 leading-relaxed">Daftarkan diri Anda sebagai pemilih dan pastikan hak pilih Anda terlindungi.</p>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Pendaftaran Pemilih</h3>
-                <p class="text-gray-600 leading-relaxed">Daftarkan diri Anda sebagai pemilih dan pastikan hak pilih Anda terlindungi.</p>
             </div>
             
-            <!-- Card 2 -->
-            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-t-4 border-kpu-red">
-                <div class="w-12 h-12 bg-kpu-red bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-kpu-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                    </svg>
+            <!-- Card 2 - Glass Effect -->
+            <div class="backdrop-blur-lg bg-white/20 border border-white/20 rounded-xl shadow-xl p-8 hover:shadow-2xl hover:bg-white/30 transition-all duration-300 border-t-4 border-kpu-red relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-kpu-red/20 backdrop-blur-sm border border-kpu-red/30 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-kpu-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Data Pemilu</h3>
+                    <p class="text-gray-700 leading-relaxed">Akses data dan hasil pemilihan umum secara transparan dan akurat.</p>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Data Pemilu</h3>
-                <p class="text-gray-600 leading-relaxed">Akses data dan hasil pemilihan umum secara transparan dan akurat.</p>
             </div>
             
-            <!-- Card 3 -->
-            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-t-4 border-kpu-gold">
-                <div class="w-12 h-12 bg-kpu-gold bg-opacity-20 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
+            <!-- Card 3 - Glass Effect -->
+            <div class="backdrop-blur-lg bg-white/20 border border-white/20 rounded-xl shadow-xl p-8 hover:shadow-2xl hover:bg-white/30 transition-all duration-300 border-t-4 border-kpu-gold relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-kpu-gold/30 backdrop-blur-sm border border-yellow-400/40 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Bantuan & Informasi</h3>
+                    <p class="text-gray-700 leading-relaxed">Dapatkan bantuan dan informasi terkait layanan KPU Kota Palangka Raya.</p>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Bantuan & Informasi</h3>
-                <p class="text-gray-600 leading-relaxed">Dapatkan bantuan dan informasi terkait layanan KPU Kota Palangka Raya.</p>
             </div>
         </div>
     </main>
