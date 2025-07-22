@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPU Kota Palangka Raya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kpu-blue': '#003366',
+                        'kpu-red': '#CC0000',
+                        'kpu-gold': '#FFD700'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-custom-image {
+        background-image: url('orange.png');
+        background-size: cover;
+        background-position: center;
+}
+
+    </style>
+</head>
+<body class="min-h-screen  bg-cover bg-center bg-custom-image">
+    <!-- Header -->
+        <div class="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-900/0 z-50 flex items-center justify-between px-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 bg-gray-900 flex items-center justify-center">
+                    <img src="logo-kpu.png" alt="logokpu">
+                </div>
+                <h1 class="text-sm font-semibold text-gray-900 dark:text-white"><button onclick="refreshIframe()">KPU Palangka Raya</button></h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-20">
+        <div class="text-center">
+            <!-- Logo Besar -->
+            <div class="flex justify-center mb-8">
+                <div class="w-24 h-24 flex items-center justify-center">
+                    <img src="logo-kpu.png" alt="logokpu">
+                </div>
+            </div>
+            
+            <!-- Ucapan Singkat -->
+            <h1 class="text-4xl md:text-5xl font-bold text-kpu-blue mb-6">
+                Selamat Datang di
+                <span class="block text-kpu-red">KPU Kota Palangka Raya</span>
+            </h1>
+            
+            <p class="text-xl text-white mb-12 max-w-3xl mx-auto leading-relaxed">
+                Melayani masyarakat dengan integritas dan transparansi dalam penyelenggaraan 
+                pemilihan umum yang demokratis, jujur, dan adil.
+            </p>
+
+            <!-- Tombol Aksi -->
+            <!-- onclick="window.location.href='https:'" -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button 
+                    class=" bg-orange-900 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <a href="formulir.html">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span>Buku Tamu</span>
+                        </span>
+                    </a>
+                </button>
+                
+                <button 
+                    onclick="showInfo()"
+                    class="bg-white hover:bg-gray-50 text-kpu-blue border-2 border-kpu-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <span class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Informasi Publik</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Cards Section -->
+        <div class="mt-20 grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-t-4 border-kpu-blue">
+                <div class="w-12 h-12 bg-kpu-blue bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-kpu-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Pendaftaran Pemilih</h3>
+                <p class="text-gray-600 leading-relaxed">Daftarkan diri Anda sebagai pemilih dan pastikan hak pilih Anda terlindungi.</p>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-t-4 border-kpu-red">
+                <div class="w-12 h-12 bg-kpu-red bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-kpu-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Data Pemilu</h3>
+                <p class="text-gray-600 leading-relaxed">Akses data dan hasil pemilihan umum secara transparan dan akurat.</p>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-t-4 border-kpu-gold">
+                <div class="w-12 h-12 bg-kpu-gold bg-opacity-20 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Bantuan & Informasi</h3>
+                <p class="text-gray-600 leading-relaxed">Dapatkan bantuan dan informasi terkait layanan KPU Kota Palangka Raya.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class=" text-white py-6 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">KPU Kota Palangka Raya</h3>
+                <p class="text-blue-200 mb-6 max-w-2xl mx-auto">
+                    Komisi Pemilihan Umum Kota Palangka Raya berkomitmen untuk menyelenggarakan 
+                    pemilihan yang demokratis, transparan, dan berintegritas.
+                </p>
+                <div class="flex justify-center space-x-6 text-sm">
+                    <span>© 2025 KPU Kota Palangka Raya</span>
+                    <span>•</span>
+                    <span>Kalimantan Tengah</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal untuk informasi -->
+    <div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-xl p-8 max-w-md mx-4 shadow-2xl transform scale-90 transition-transform duration-300">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-kpu-blue bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-kpu-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Informasi Kontak</h3>
+                <div class="text-left space-y-3 text-gray-600">
+                    <p><strong>Alamat:</strong> Jl. Tangkasiang No.16A, Palangka, Kec. Jekan Raya, Kota Palangka Raya, Kalimantan Tengah 73112</p>
+                    <p><strong>Telepon:</strong> 0821-5563-3580</p>
+                    <p><strong>Email:</strong> kpu@palangkaraya.go.id</p>
+                    <p><strong>Jam Kerja:</strong> Senin - Jumat, 7:30 - 16:00</p>
+                </div>
+                
+                <!-- Social Media Links -->
+                <div class="mt-6 mb-6">
+                    <p class="text-sm font-semibold text-gray-900 mb-4">Ikuti Kami</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors" title="Facebook">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="https://www.instagram.com/kpu.palangkaraya/" class="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full flex items-center justify-center transition-all" title="Instagram">
+                            <i class="fab fa-instagram text-sm"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@kpukotapalangkaraya" class="w-10 h-10 bg-black hover:bg-gray-800 text-white rounded-full flex items-center justify-center transition-colors" title="TikTok">
+                            <i class="fab fa-tiktok text-sm"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-colors" title="Twitter">
+                            <i class="fab fa-twitter text-sm"></i>
+                        </a>
+                        <a href="https://kota-palangkaraya.kpu.go.id/" class="w-10 h-10 bg-gray-600 hover:bg-gray-700 text-white rounded-full flex items-center justify-center transition-colors" title="Website">
+                            <i class="fas fa-globe text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <button 
+                    onclick="hideInfo()" 
+                    class="mt-4 w-full bg-kpu-blue text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showInfo() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-90');
+        }
+
+        function hideInfo() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-90');
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideInfo();
+            }
+        });
+
+        // Close modal on outside click
+        document.getElementById('infoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideInfo();
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
