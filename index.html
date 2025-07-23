@@ -41,8 +41,62 @@
                 </div>
                 <h1 class="text-sm font-semibold text-gray-900 dark:text-white"><button onclick="refreshIframe()">KPU Palangka Raya</button></h1>
             </div>
+            <div class="flex items-center space-x-2">
+                <button 
+                    onclick="refreshIframe()" 
+                    class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                    title="Refresh (R)">
+                    <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                </button>
+                <button 
+                    onclick="toggleFullscreen()" 
+                    class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                    title="Fullscreen (F)">
+                    <svg id="fullscreenIcon" class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                    </svg>
+                </button>
+                <div class="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
+                <button 
+                    onclick="toggleHelp()" 
+                    class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                    title="Help (H)">
+                    <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
-
+<div id="helpModal" class="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-60 opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4 shadow-xl">
+                <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Keyboard Shortcuts</h3>
+                <div class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">R</span>
+                        <span>Refresh</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">F</span>
+                        <span>Fullscreen</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">H</span>
+                        <span>Help</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">ESC</span>
+                        <span>Exit Fullscreen</span>
+                    </div>
+                </div>
+                <button 
+                    onclick="toggleHelp()" 
+                    class="mt-4 w-full bg-gray-900 dark:bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
     <!-- Hero Section -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-20">
         <div class="text-center">
@@ -238,6 +292,82 @@
                     behavior: 'smooth'
                 });
             });
+        });
+        function toggleFullscreen() {
+            const container = document.documentElement;
+            const icon = document.getElementById('fullscreenIcon');
+            
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().then(() => {
+                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>`;
+                }).catch(err => {
+                    console.error('Fullscreen error:', err);
+                });
+            } else {
+                document.exitFullscreen().then(() => {
+                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>`;
+                });
+            }
+        }
+
+        function toggleHelp() {
+            const modal = document.getElementById('helpModal');
+            if (modal.style.opacity === '0' || modal.style.opacity === '') {
+                modal.classList.remove('pointer-events-none');
+                modal.style.opacity = '1';
+            } else {
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.classList.add('pointer-events-none');
+                }, 300);
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            switch(e.key.toLowerCase()) {
+                case 'r':
+                    e.preventDefault();
+                    refreshIframe();
+                    break;
+                case 'f':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'h':
+                    e.preventDefault();
+                    toggleHelp();
+                    break;
+                case 'escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    } else {
+                        const modal = document.getElementById('helpModal');
+                        if (modal.style.opacity === '1') {
+                            toggleHelp();
+                        }
+                    }
+                    break;
+            }
+        });
+
+        // Handle fullscreen change
+        document.addEventListener('fullscreenchange', function() {
+            const icon = document.getElementById('fullscreenIcon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>`;
+            } else {
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>`;
+            }
+        });
+
+        // Close help modal when clicking outside
+        document.getElementById('helpModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleHelp();
+            }
         });
     </script>
 </body>
