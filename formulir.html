@@ -13,6 +13,13 @@
         .animate-spin {
             animation: spin 1s linear infinite;
         }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
     </style>
 </head>
 <body class="overflow-hidden">
@@ -22,7 +29,7 @@
             <a href="index.html">
                 <div class="flex items-center space-x-3">
                     <div class="w-6 h-6 flex items-center justify-center">
-                        <img src="logo-kpu.png" alt="logokpu">
+                        <img src="logo-kpu.png" alt="logokpu" onerror="this.style.display='none'">
                     </div>
                     <h1 class="text-sm font-semibold text-gray-900 dark:text-white">KPU Palangka Raya</h1>
                 </div>
@@ -58,9 +65,16 @@
         
         <!-- Loading Overlay -->
         <div id="loadingOverlay" class="fixed inset-0 bg-white dark:bg-gray-900 flex items-center justify-center z-40 transition-opacity duration-300">
-            <div class="flex flex-col items-center space-y-3">
-                <div class="w-8 h-8 border-2 border-gray-300 dark:border-gray-600 border-t-gray-700 dark:border-t-gray-300 rounded-full animate-spin"></div>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Loading content...</p>
+            <div class="flex flex-col items-center space-y-4">
+                <div class="w-10 h-10 border-3 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                <div class="text-center">
+                    <p class="text-base font-medium text-gray-800 dark:text-gray-200 animate-pulse">Memuat konten...</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Mohon tunggu sebentar</p>
+                </div>
+                <!-- Progress bar -->
+                <div class="w-64 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
             </div>
         </div>
         
@@ -96,33 +110,107 @@
         
         <iframe 
             id="notionEmbed"
-            class="w-full h-full"
+            class="w-full h-full opacity-0 transition-opacity duration-500"
             style="margin-top: -56px; height: calc(100vh + 56px);"
             src="https://plastic-situation-700.notion.site/ebd/2306c82683438065994bcffc2637a9af" 
-            allowfullscreen>
+            allowfullscreen
+            loading="eager">
         </iframe>
     </div>
     <script>
-        document.getElementById('notionEmbed').addEventListener('load', function() {
-            setTimeout(() => {
-                const loadingOverlay = document.getElementById('loadingOverlay');
-                if (loadingOverlay) {
+        let loadingTimeout;
+        let progressInterval;
+        let loadStartTime;
+
+        function startProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            let progress = 0;
+            
+            progressInterval = setInterval(() => {
+                if (progress < 90) {
+                    progress += Math.random() * 15;
+                    if (progress > 90) progress = 90;
+                    progressBar.style.width = progress + '%';
+                }
+            }, 200);
+        }
+
+        function completeProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+            progressBar.style.width = '100%';
+        }
+
+        function hideLoadingOverlay() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const iframe = document.getElementById('notionEmbed');
+            
+            if (loadingOverlay && iframe) {
+                completeProgressBar();
+                
+                setTimeout(() => {
                     loadingOverlay.style.opacity = '0';
+                    iframe.style.opacity = '1';
+                    
                     setTimeout(() => {
                         loadingOverlay.style.display = 'none';
                     }, 300);
-                }
-            }, 800);
+                }, 300);
+            }
+        }
+
+        function showLoadingOverlay() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const iframe = document.getElementById('notionEmbed');
+            
+            if (loadingOverlay && iframe) {
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.style.opacity = '1';
+                iframe.style.opacity = '0';
+                
+                // Reset progress bar
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.width = '0%';
+                startProgressBar();
+            }
+        }
+
+        // Multiple event listeners untuk memastikan loading detection
+        document.getElementById('notionEmbed').addEventListener('load', function() {
+            console.log('Iframe loaded');
+            loadStartTime = Date.now();
+            
+            // Tunggu sebentar untuk memastikan konten benar-benar loaded
+            setTimeout(hideLoadingOverlay, 500);
         });
+
+        // Backup timeout jika load event tidak trigger
+        function initLoadingTimeout() {
+            if (loadingTimeout) {
+                clearTimeout(loadingTimeout);
+            }
+            
+            loadingTimeout = setTimeout(() => {
+                console.log('Loading timeout reached');
+                hideLoadingOverlay();
+            }, 15000); // 15 detik timeout
+        }
 
         function refreshIframe() {
             const iframe = document.getElementById('notionEmbed');
-            const loadingOverlay = document.getElementById('loadingOverlay');
             
-            loadingOverlay.style.display = 'flex';
-            loadingOverlay.style.opacity = '1';
+            showLoadingOverlay();
+            initLoadingTimeout();
             
-            iframe.src = iframe.src;
+            // Force reload iframe
+            const currentSrc = iframe.src;
+            iframe.src = 'about:blank';
+            
+            setTimeout(() => {
+                iframe.src = currentSrc + '?t=' + new Date().getTime();
+            }, 100);
         }
 
         function toggleFullscreen() {
@@ -142,7 +230,6 @@
             }
         }
 
-        // Toggle help modal
         function toggleHelp() {
             const modal = document.getElementById('helpModal');
             if (modal.style.opacity === '0' || modal.style.opacity === '') {
@@ -177,7 +264,6 @@
                     if (document.fullscreenElement) {
                         document.exitFullscreen();
                     } else {
-                        // Close help modal if open
                         const modal = document.getElementById('helpModal');
                         if (modal.style.opacity === '1') {
                             toggleHelp();
@@ -204,24 +290,55 @@
             }
         });
 
-        // Error handling
+        // Enhanced error handling
         document.getElementById('notionEmbed').addEventListener('error', function() {
+            console.log('Iframe error occurred');
             const loadingOverlay = document.getElementById('loadingOverlay');
             loadingOverlay.innerHTML = `
-                <div class="flex flex-col items-center space-y-4">
-                    <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex flex-col items-center space-y-4 max-w-md mx-4">
+                    <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.998-.833-2.768 0L3.005 16.5c-.77.833.192 2.5 1.732 2.5z"/>
                     </svg>
                     <div class="text-center">
-                        <p class="text-lg font-semibold text-gray-900 mb-1">Failed to load content</p>
-                        <p class="text-sm text-gray-600 mb-4">Please check your connection and try again</p>
-                        <button onclick="refreshIframe()" class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors">
-                            Try Again
-                        </button>
+                        <p class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Gagal memuat konten</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Silakan periksa koneksi internet Anda dan coba lagi</p>
+                        <div class="space-y-2">
+                            <button onclick="refreshIframe()" class="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium">
+                                Coba Lagi
+                            </button>
+                            <button onclick="window.location.reload()" class="w-full bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-600 transition-colors">
+                                Refresh Halaman
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
         });
+
+        // Network status detection
+        window.addEventListener('online', function() {
+            console.log('Connection restored');
+            if (document.getElementById('loadingOverlay').style.display !== 'none') {
+                refreshIframe();
+            }
+        });
+
+        window.addEventListener('offline', function() {
+            console.log('Connection lost');
+        });
+
+        // Initialize loading process
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, starting initial load');
+            startProgressBar();
+            initLoadingTimeout();
+        });
+
+        // Preload mechanism untuk mencoba mempercepat loading
+        const link = document.createElement('link');
+        link.rel = 'preconnect';
+        link.href = 'https://plastic-situation-700.notion.site';
+        document.head.appendChild(link);
     </script>
 </body>
 </html>
