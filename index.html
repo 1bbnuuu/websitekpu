@@ -6,6 +6,9 @@
     <title>KPU Kota Palangka Raya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- dns1.p01.nsone.net -->
+    <!-- https://sezari.blog/ -->
+    <!-- https://kpukotapalangkaraya.netlify.app/ -->
     <script>
         tailwind.config = {
             theme: {
@@ -51,9 +54,9 @@
             </div>
             
             <!-- Ucapan Singkat -->
-            <h1 class="text-4xl md:text-5xl font-bold text-kpu-blue mb-6">
+            <h1 class=" text-4xl md:text-5xl font-bold text-kpu-red mb-6">
                 Selamat Datang di
-                <span class="block text-kpu-red">KPU Kota Palangka Raya</span>
+                <span class="block text-white">KPU Kota Palangka Raya</span>
             </h1>
             
             <p class="text-xl text-white mb-12 max-w-3xl mx-auto leading-relaxed">
@@ -139,54 +142,57 @@
     <footer class=" text-white py-6 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h3 class="text-2xl font-bold mb-4">KPU Kota Palangka Raya</h3>
+                <!-- <h3 class="text-2xl font-bold mb-4">KPU Kota Palangka Raya</h3>
                 <p class="text-blue-200 mb-6 max-w-2xl mx-auto">
                     Komisi Pemilihan Umum Kota Palangka Raya berkomitmen untuk menyelenggarakan 
                     pemilihan yang demokratis, transparan, dan berintegritas.
-                </p>
+                </p> -->
                 <div class="flex justify-center space-x-6 text-sm">
                     <span>© 2025 KPU Kota Palangka Raya</span>
-                    <span>•</span>
-                    <span>Kalimantan Tengah</span>
+                    <!-- <span>•</span>
+                    <span>Kalimantan Tengah</span> -->
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modal untuk informasi -->
-    <div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-white rounded-xl p-8 max-w-md mx-4 shadow-2xl transform scale-90 transition-transform duration-300">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-kpu-blue bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+    <!-- Modal untuk informasi dengan Glass Effect -->
+    <div id="infoModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="backdrop-blur-lg border border-white/20 rounded-xl shadow-2xl p-8 max-w-md mx-4 transform scale-90 transition-all duration-300 relative overflow-hidden">
+            <!-- Gradient overlay for extra glass effect -->
+            <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+            
+            <div class="relative z-10 text-center">
+                <div class="w-16 h-16 bg-kpu-blue/20 backdrop-blur-sm border border-kpu-blue/30 rounded-full flex items-center justify-center mx-auto mb-6">
                     <svg class="w-8 h-8 text-kpu-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Informasi Kontak</h3>
-                <div class="text-left space-y-3 text-gray-600">
-                    <p><strong>Alamat:</strong> Jl. Tangkasiang No.16A, Palangka, Kec. Jekan Raya, Kota Palangka Raya, Kalimantan Tengah 73112</p>
-                    <p><strong>Telepon:</strong> 0821-5563-3580</p>
-                    <p><strong>Email:</strong> kpu@palangkaraya.go.id</p>
-                    <p><strong>Jam Kerja:</strong> Senin - Jumat, 7:30 - 16:00</p>
+                <h3 class="text-xl font-bold text-white mb-4">Informasi Kontak</h3>
+                <div class="text-left space-y-3 text-white/90">
+                    <p><strong class="text-white">Alamat:</strong> Jl. Tangkasiang No.16A, Palangka, Kec. Jekan Raya, Kota Palangka Raya, Kalimantan Tengah 73112</p>
+                    <p><strong class="text-white">Telepon:</strong> 0821-5563-3580</p>
+                    <p><strong class="text-white">Email:</strong> kpu@palangkaraya.go.id</p>
+                    <p><strong class="text-white">Jam Kerja:</strong> Senin - Jumat, 7:30 - 16:00</p>
                 </div>
                 
                 <!-- Social Media Links -->
                 <div class="mt-6 mb-6">
-                    <p class="text-sm font-semibold text-gray-900 mb-4">Ikuti Kami</p>
+                    <p class="text-sm font-semibold text-white mb-4">Ikuti Kami</p>
                     <div class="flex justify-center space-x-4">
-                        <a href="#" class="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors" title="Facebook">
+                        <a href="#" class="w-10 h-10 bg-blue-600/80 backdrop-blur-sm border border-blue-400/30 hover:bg-blue-700/80 text-white rounded-full flex items-center justify-center transition-all" title="Facebook">
                             <i class="fab fa-facebook-f text-sm"></i>
                         </a>
-                        <a href="https://www.instagram.com/kpu.palangkaraya/" class="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full flex items-center justify-center transition-all" title="Instagram">
+                        <a href="https://www.instagram.com/kpu.palangkaraya/" class="w-10 h-10 bg-gradient-to-br from-purple-600/80 to-pink-600/80 backdrop-blur-sm border border-purple-400/30 hover:from-purple-700/80 hover:to-pink-700/80 text-white rounded-full flex items-center justify-center transition-all" title="Instagram">
                             <i class="fab fa-instagram text-sm"></i>
                         </a>
-                        <a href="https://www.tiktok.com/@kpukotapalangkaraya" class="w-10 h-10 bg-black hover:bg-gray-800 text-white rounded-full flex items-center justify-center transition-colors" title="TikTok">
+                        <a href="https://www.tiktok.com/@kpukotapalangkaraya" class="w-10 h-10 bg-black/80 backdrop-blur-sm border border-gray-400/30 hover:bg-gray-800/80 text-white rounded-full flex items-center justify-center transition-all" title="TikTok">
                             <i class="fab fa-tiktok text-sm"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-colors" title="Twitter">
+                        <a href="#" class="w-10 h-10 bg-blue-500/80 backdrop-blur-sm border border-blue-300/30 hover:bg-blue-600/80 text-white rounded-full flex items-center justify-center transition-all" title="Twitter">
                             <i class="fab fa-twitter text-sm"></i>
                         </a>
-                        <a href="https://kota-palangkaraya.kpu.go.id/" class="w-10 h-10 bg-gray-600 hover:bg-gray-700 text-white rounded-full flex items-center justify-center transition-colors" title="Website">
+                        <a href="https://kota-palangkaraya.kpu.go.id/" class="w-10 h-10 bg-gray-600/80 backdrop-blur-sm border border-gray-400/30 hover:bg-gray-700/80 text-white rounded-full flex items-center justify-center transition-all" title="Website">
                             <i class="fas fa-globe text-sm"></i>
                         </a>
                     </div>
@@ -194,7 +200,7 @@
                 
                 <button 
                     onclick="hideInfo()" 
-                    class="mt-4 w-full bg-kpu-blue text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors">
+                    class="mt-4 w-full bg-kpu-blue/80 backdrop-blur-sm border border-kpu-blue/30 text-white py-2 px-4 rounded-lg hover:bg-kpu-blue/90 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                     Tutup
                 </button>
             </div>
