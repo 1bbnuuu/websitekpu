@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Permohonan Informasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="src/img/logo-kpu.png" type="image/x-icon" />
+    <style>
+
+    </style>
+</head>
+<body class=" min-h-screen py-8">
+    <!-- Header and modals -->
+    <div class="fixed top-0 left-0 right-0 h-14  dark:bg-gray-900 z-40 flex items-center justify-between px-4">
+        <a href="index.html">
+            <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <img src="src/img/logo-kpu.png" alt="logokpu" onerror="this.style.display='none'">
+                </div>
+                <h1 class="text-sm font-semibold text-gray-900 dark:text-white">KPU Palangka Raya</h1>
+            </div>
+        </a>
+        <div class="flex items-center space-x-2">
+            <button 
+                onclick="refreshIframe()" 
+                class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                title="Refresh (R)">
+                <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+            </button>
+            <button 
+                onclick="toggleFullscreen()" 
+                class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                title="Fullscreen (F)">
+                <svg id="fullscreenIcon" class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                </svg>
+            </button>
+            <div class="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
+            <button 
+                onclick="toggleHelp()" 
+                class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                title="Help (H)">
+                <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+        <div id="helpModal" class="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class=" dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4 shadow-xl">
+                <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Keyboard Shortcuts</h3>
+                <div class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">R</span>
+                        <span>Refresh</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">F</span>
+                        <span>Fullscreen</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">H</span>
+                        <span>Help</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-xs">ESC</span>
+                        <span>Exit Fullscreen</span>
+                    </div>
+                </div>
+                <button 
+                    onclick="toggleHelp()" 
+                    class="mt-4 w-full bg-gray-900 dark:bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    <div class="max-w-4xl mx-auto px-4">
+        <!-- Header -->
+        <div class=" mt-4 mb-8">
+            <div class="p-8 text-center">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">BUKU TAMU</h1>
+                <p class="text-gray-600">KPU KOTA PALANGKA RAYA</p>
+            </div>
+        </div>
+
+        <!-- Success/Warning Messages -->
+        <div id="successMessage" class="hidden mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <p class="text-green-800 text-sm"></p>
+        </div>
+
+        <div id="warningMessage" class="hidden mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p class="text-yellow-800 text-sm"></p>
+        </div>
+
+        <!-- Export Section -->
+        <!-- <div class=" rounded-lg shadow-sm border mb-8">
+            <div class="p-6">
+                <h2 class="text-xl font-light text-gray-900 mb-4">Export Data</h2>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="exportToCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition-colors">
+                        📊 Export CSV
+                    </button>
+                    <button onclick="exportToExcel()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors">
+                        📈 Export Excel
+                    </button>
+                    <button onclick="clearAllData()" class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition-colors">
+                        🗑️ Hapus Semua Data
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Form -->
+        <div class="">
+            <div class="p-8">
+                <form id="infoForm" autocomplete="off" class="space-y-6">
+                    <!-- Row 1: Name and Date -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
+                            <input type="text" id="nama" name="nama" required
+                                class="w-full px-4 py-3 border border-b-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        </div>
+                        <div>
+                            <label for="tanggal" class="block text-sm font-medium text-gray-700 mb-2">Tanggal *</label>
+                            <input type="date" id="tanggal" name="tanggal" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div>
+                        <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap *</label>
+                        <textarea id="alamat" name="alamat" required rows="3" placeholder="Masukkan alamat lengkap Anda"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"></textarea>
+                    </div>
+
+                    <!-- Row 2: Contact and Job -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="kontak" class="block text-sm font-medium text-gray-700 mb-2">Nomor Kontak *</label>
+                            <input type="tel" id="kontak" name="kontak" required placeholder="08xxxxxxxxxx"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        </div>
+                        <div>
+                            <label for="pekerjaan" class="block text-sm font-medium text-gray-700 mb-2">Pekerjaan/Asal Institusi *</label>
+                            <input type="text" id="pekerjaan" name="pekerjaan" required placeholder="PT. ABC / Universitas XYZ"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Target Party -->
+                    <div>
+                        <label for="pihakTujuan" class="block text-sm font-medium text-gray-700 mb-2">Pihak yang Dituju *</label>
+                        <select id="pihakTujuan" name="pihakTujuan" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                            onchange="handlePihakTujuanChange()">
+                            <option value="">Pilih pihak yang dituju</option>
+                            <option value="Bagian Umum">Bagian Umum</option>
+                            <option value="Bagian SDM">Bagian SDM</option>
+                            <option value="Bagian DATIN">DATIN</option>
+                            <option value="Sekretaris">Sekretaris</option>
+                            <option value="Ketua KPU">Ketua KPU</option>
+                            <option value="Komisioner">Komisioner</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                        <div id="lainnyaInputContainer" class="mt-3 hidden">
+                            <label for="pihakTujuanLainnya" class="block text-sm font-medium text-gray-700 mb-2">Masukkan Pihak Lainnya *</label>
+                            <input type="text" id="pihakTujuanLainnya" name="pihakTujuanLainnya"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Information Required -->
+                    <div>
+                        <label for="informasi" class="block text-sm font-medium text-gray-700 mb-2">Informasi yang Diperlukan *</label>
+                        <textarea id="informasi" name="informasi" required rows="4" placeholder="Jelaskan secara detail informasi yang Anda perlukan"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"></textarea>
+                    </div>
+
+                    <!-- File Upload with Camera -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Dokumen/File Pendukung</label>
+                        
+                        <!-- Upload Options -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <!-- Upload File -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                                <input type="file" id="dokumen" name="dokumen" class="hidden" multiple accept="image/*,.pdf,.doc,.docx" onchange="handleFileUpload(this)">
+                                <label for="dokumen" class="cursor-pointer">
+                                    <div class="text-gray-500">
+                                        <svg class="mx-auto h-8 w-8 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <p class="text-sm font-medium">📁 Upload File</p>
+                                        <p class="text-xs">Max 5MB per file</p>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Camera -->
+                            <div class="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                                <button type="button" onclick="openCamera()" class="w-full h-full">
+                                    <div class="text-blue-500">
+                                        <svg class="mx-auto h-8 w-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <p class="text-sm font-medium">📸 Ambil Foto</p>
+                                        <p class="text-xs">Buka kamera</p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="filePreview" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit" id="submitBtn" 
+                            class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            Kirim Formulir
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class=" rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="text-center mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Ambil Foto</h3>
+                <p class="text-sm text-gray-600">Posisikan objek dengan baik</p>
+            </div>
+            
+            <div class="mb-4">
+                <video id="cameraStream" class="w-full rounded-lg bg-gray-900" autoplay playsinline></video>
+                <canvas id="photoCanvas" class="hidden"></canvas>
+            </div>
+            
+            <div class="flex gap-3 justify-center">
+                <button type="button" onclick="capturePhoto()" id="captureBtn" 
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    📸 Ambil Foto
+                </button>
+                <button type="button" onclick="closeCamera()" 
+                    class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                    ❌ Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/script/form.js"></script>
+    <script src="src/script/fnavbar.js"></script>
+    <script>
+    function handlePihakTujuanChange() {
+        const select = document.getElementById("pihakTujuan");
+        const lainnyaContainer = document.getElementById("lainnyaInputContainer");
+        const inputLainnya = document.getElementById("pihakTujuanLainnya");
+
+        if (select.value === "Lainnya") {
+            lainnyaContainer.classList.remove("hidden");
+            inputLainnya.required = true;
+        } else {
+            lainnyaContainer.classList.add("hidden");
+            inputLainnya.required = false;
+            inputLainnya.value = "";
+        }
+    }
+</script>
+</body>
+</html>

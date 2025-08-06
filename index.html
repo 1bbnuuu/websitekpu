@@ -6,6 +6,7 @@
     <title>KPU Kota Palangka Raya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="src/img/logo-kpu.png" type="image/x-icon" />
     <!-- https://kpukotapalangkaraya.netlify.app/ -->
     <script>
         tailwind.config = {
@@ -23,7 +24,7 @@
     </script>
     <style>
         .bg-custom-image {
-        background-image: url('orange.png');
+        background-image: url('src/img/orange.png');
         background-size: cover;
         background-position: center;
 }
@@ -35,7 +36,7 @@
         <div class="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-900/0 z-40 flex items-center justify-between px-4">
             <div class="flex items-center space-x-3">
                 <div class="w-6 h-6 flex items-center justify-center">
-                    <img src="logo-kpu.png" alt="logokpu">
+                    <img src="src/img/logo-kpu.png" alt="logokpu">
                 </div>
                 <h1 class="text-sm font-semibold text-gray-900 dark:text-white"><button onclick="refreshIframe()">KPU Palangka Raya</button></h1>
             </div>
@@ -101,7 +102,7 @@
             <!-- Logo Besar -->
             <div class="flex justify-center mb-8">
                 <div class="w-24 h-24 flex items-center justify-center">
-                    <img src="logo-kpu.png" alt="logokpu">
+                    <img src="src/img/logo-kpu.png" alt="logokpu">
                 </div>
             </div>
             
@@ -119,7 +120,7 @@
             <!-- Tombol Aksi -->
             <!-- onclick="window.location.href='https:'" -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="formulir.html">
+                <a href="maintanance.html">
                 <button 
                     class=" backdrop-blur-lg bg-white/20 border border-white/20 p-8 hover:shadow-2xl hover:bg-white/30 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                         <span class="flex items-center space-x-2">
@@ -255,118 +256,6 @@
         </div>
     </div>
 
-    <script>
-        function showInfo() {
-            const modal = document.getElementById('infoModal');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.querySelector('div').classList.remove('scale-90');
-        }
-
-        function hideInfo() {
-            const modal = document.getElementById('infoModal');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            modal.querySelector('div').classList.add('scale-90');
-        }
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hideInfo();
-            }
-        });
-
-        // Close modal on outside click
-        document.getElementById('infoModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideInfo();
-            }
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        function toggleFullscreen() {
-            const container = document.documentElement;
-            const icon = document.getElementById('fullscreenIcon');
-            
-            if (!document.fullscreenElement) {
-                container.requestFullscreen().then(() => {
-                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>`;
-                }).catch(err => {
-                    console.error('Fullscreen error:', err);
-                });
-            } else {
-                document.exitFullscreen().then(() => {
-                    icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>`;
-                });
-            }
-        }
-
-        function toggleHelp() {
-            const modal = document.getElementById('helpModal');
-            if (modal.style.opacity === '0' || modal.style.opacity === '') {
-                modal.classList.remove('pointer-events-none');
-                modal.style.opacity = '1';
-            } else {
-                modal.style.opacity = '0';
-                setTimeout(() => {
-                    modal.classList.add('pointer-events-none');
-                }, 300);
-            }
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            
-            switch(e.key.toLowerCase()) {
-                case 'r':
-                    e.preventDefault();
-                    refreshIframe();
-                    break;
-                case 'f':
-                    e.preventDefault();
-                    toggleFullscreen();
-                    break;
-                case 'h':
-                    e.preventDefault();
-                    toggleHelp();
-                    break;
-                case 'escape':
-                    if (document.fullscreenElement) {
-                        document.exitFullscreen();
-                    } else {
-                        const modal = document.getElementById('helpModal');
-                        if (modal.style.opacity === '1') {
-                            toggleHelp();
-                        }
-                    }
-                    break;
-            }
-        });
-
-        // Handle fullscreen change
-        document.addEventListener('fullscreenchange', function() {
-            const icon = document.getElementById('fullscreenIcon');
-            if (document.fullscreenElement) {
-                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>`;
-            } else {
-                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>`;
-            }
-        });
-
-        // Close help modal when clicking outside
-        document.getElementById('helpModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleHelp();
-            }
-        });
-    </script>
+    <script src="src/script/fnavbar.js"></script>
 </body>
 </html>
