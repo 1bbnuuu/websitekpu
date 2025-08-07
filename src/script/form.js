@@ -3,7 +3,7 @@ let uploadedFiles = [];
 let cameraStream = null;
 
 // GANTI URL INI DENGAN URL APPS SCRIPT ANDA
-const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynyyN_J25O5xNGYXRb2jH1UEqUeSUSE6lHmKk-Jhhnko2MA-nqMhDsFNFF_vMQspIeSg/exec';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuCEgMOaYENh5iNrxqCvBp9brxVHe16CoknraWUULpmXciQ0NprSOA51ATwVXAqksO/exec';
 
 // Load saved data on page load
 document.addEventListener('DOMContentLoaded', function() {
