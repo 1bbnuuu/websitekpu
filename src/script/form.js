@@ -13,11 +13,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function handleFileUpload(input) {
+    const allowedTypes = [
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'image/png',
+        'image/jpeg'
+    ];
+
     const files = Array.from(input.files);
     
     files.forEach(file => {
+        if (!allowedTypes.includes(file.type)) {
+            showMessage(`Jenis file ${file.name} tidak diperbolehkan. Hanya PDF, DOCX, PNG, dan JPG/JPEG.`, 'warning');
+            return;
+        }
+
         if (file.size > 5 * 1024 * 1024) {
-            showMessage('File ' + file.name + ' terlalu besar. Maksimal 5MB per file.', 'warning');
+            showMessage(`File ${file.name} terlalu besar. Maksimal 5MB per file.`, 'warning');
             return;
         }
         
