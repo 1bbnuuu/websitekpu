@@ -29,7 +29,7 @@ function handleFileUpload(input) {
         }
 
         if (file.size > 5 * 1024 * 1024) {
-            showMessage(`File ${file.name} terlalu besar. Maksimal 5MB per file.`, 'warning');
+            showMessage("File ${file.name} terlalu besar. Maksimal 5MB per file.", 'warning');
             return;
         }
         
